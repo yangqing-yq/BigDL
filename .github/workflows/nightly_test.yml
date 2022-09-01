@@ -1,27 +1,7 @@
-name: Nightly Test
+name: Surefile Report
 
 on:
-  #pull_request:
-  schedule:
-    - cron: '0 13 * * *' # GMT time, 13:00 GMT == 21:00 China
-  workflow_dispatch:
-    inputs:
-      artifact:
-        description: 'select which job to run("all" will make all jobs run)'
-        required: true
-        default: 'all'
-        type: choice
-        options:
-        - all
-        - Orca-Python-ExampleTest-Py37-Spark3
-        - Orca-Python-ExampleTest-Ray-Py37-Spark3
-        - Orca-Jep-ExampleTest-Py37-Spark2
-        - Orca-Python-Ray-Py37-Spark3
-        - Orca-Python-Py37-Spark3
-        - Orca-Ray-Ctx-Example
-        - Dllib-Scala-UT
-        - Friesian-Scala-UT
-        - PPML-Scala-UT
+  push:
         
 
 permissions:
@@ -29,99 +9,8 @@ permissions:
   packages: write
 
 jobs:
-  Orca-Python-ExampleTest-Py37-Spark3:
-    if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Python-ExampleTest-Py37-Spark3' || github.event.inputs.artifact == 'all' }} 
-    runs-on: [self-hosted, Gondolin, ubuntu-20.04-lts]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK8
-      uses: ./.github/actions/jdk-setup-action
-    - name: Set up maven
-      uses: ./.github/actions/maven-setup-action
-    - name: Run test
-      uses: ./.github/actions/orca-python-exampletest-action
-
-
-  Orca-Python-ExampleTest-Ray-Py37-Spark3:
-    if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Python-ExampleTest-Ray-Py37-Spark3' || github.event.inputs.artifact == 'all' }} 
-    runs-on: [self-hosted, Gondolin, ubuntu-20.04-lts]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK8
-      uses: ./.github/actions/jdk-setup-action
-    - name: Set up maven
-      uses: ./.github/actions/maven-setup-action
-    - name: Run test
-      uses: ./.github/actions/orca-python-exampletest-ray-action
-
-  Orca-Jep-ExampleTest-Py37-Spark2:
-    if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Jep-ExampleTest-Py37-Spark2' || github.event.inputs.artifact == 'all' }} 
-    runs-on: [self-hosted, Gondolin, ubuntu-20.04-lts]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK8
-      uses: ./.github/actions/jdk-setup-action
-    - name: Set up maven
-      uses: ./.github/actions/maven-setup-action
-    - name: Run test
-      uses: ./.github/actions/orca-jep-exampletest-action
-
-  Orca-Python-Ray-Py37-Spark3:
-    if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Python-Ray-Py37-Spark3' || github.event.inputs.artifact == 'all' }}
-    runs-on: [self-hosted, Gondolin, ubuntu-20.04-lts]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK8
-      uses: ./.github/actions/jdk-setup-action
-    - name: Set up maven
-      uses: ./.github/actions/maven-setup-action
-    - name: Run test
-      uses: ./.github/actions/orca-python-ray-py37-spark3-action
-
-  Orca-Python-Py37-Spark3:
-    if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Python-Py37-Spark3' || github.event.inputs.artifact == 'all' }}
-    runs-on: [self-hosted, Gondolin, ubuntu-20.04-lts]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK8
-      uses: ./.github/actions/jdk-setup-action
-    - name: Set up maven
-      uses: ./.github/actions/maven-setup-action
-    - name: Run test
-      uses: ./.github/actions/orca-python-py37-spark3-action
-
-  Dllib-Scala-UT:
-    if: ${{ github.event.schedule || github.event.inputs.artifact == 'Dllib-Scala-UT' || github.event.inputs.artifact == 'all' }} 
-    runs-on: [ self-hosted, Gondolin, ubuntu-20.04-lts ]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK8
-        uses: ./.github/actions/jdk-setup-action
-      - name: Set up maven
-        uses: ./.github/actions/maven-setup-action
-      - name: Run test
-        uses: ./.github/actions/dllib-scala-ut-action
       
-  Friesian-Scala-UT:
-    if: ${{ github.event.schedule || github.event.inputs.artifact == 'Friesian-Scala-UT' || github.event.inputs.artifact == 'all' }} 
-    runs-on: [ self-hosted, ubuntu-20.04-lts, CLX, AVX512, Ettenmoors ]
-
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK8
-        uses: ./.github/actions/jdk-setup-action
-      - name: Set up maven
-        uses: ./.github/actions/maven-setup-action
-      - name: Run test
-        uses: ./.github/actions/friesian-scala-ut-action
-      
-  PPML-Scala-UT:
+  Surefire-report:
     if: ${{ github.event.schedule || github.event.inputs.artifact == 'PPML-Scala-UT' || github.event.inputs.artifact == 'all' }} 
     runs-on: [ self-hosted, Gondolin, ubuntu-20.04-lts ]
 
@@ -131,18 +20,25 @@ jobs:
         uses: ./.github/actions/jdk-setup-action
       - name: Set up maven
         uses: ./.github/actions/maven-setup-action
-      - name: Run test
-        uses: ./.github/actions/ppml-scala-ut-action
-
-  Orca-Ray-Ctx-Example:
-    if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Ray-Ctx-Example' || github.event.inputs.artifact == 'all' }} 
-    runs-on: [self-hosted, Gondolin-resources, ubuntu-20.04-lts]
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK8
-      uses: ./.github/actions/jdk-setup-action
-    - name: Set up maven
-      uses: ./.github/actions/maven-setup-action
-    - name: Run test
-      uses: ./.github/actions/orca-ray-ctx-example-action
+      # - name: Run test
+      #   uses: ./.github/actions/ppml-scala-ut-action
+      - name: Run tests
+        run: |
+            export SPARK_LOCAL_HOSTNAME=localhost
+            export KERAS_BACKEND=tensorflow
+            cd scala
+            mvn "-DwildcardSuites=com.intel.analytics.bigdl.dllib.optim" "-Dtest=com.intel.analytics.bigdl.dllib.optim.*Test" test -P spark_3.x -Dspark.version=3.1.2
+      
+      - name: Publish Test Report
+        # env:
+        #   https_proxy: http://child-prc.intel.com:913
+        #   http_proxy: http://child-prc.intel.com:913
+        #   no_proxy: api.github.com
+        if: ${{ always() }}
+        uses: scacap/action-surefire-report@v1
+        with:
+          check_name: Example mvn Report
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          report_paths: scala/dllib/target/surefire-reports/TEST*.xml
+          
+  
