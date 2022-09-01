@@ -15,6 +15,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+      - name: Create Awesome Badge
+        uses: schneegans/dynamic-badges-action@v1.4.0
+        with:
+          auth: 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
+          gistID: 7495dccc42118020c12de5a095cfa2a6
+          filename: test.json
+          label: Hello
+          message: World
+          color: orange
       - name: Set up JDK8
         uses: ./.github/actions/jdk-setup-action
       - name: Set up maven
