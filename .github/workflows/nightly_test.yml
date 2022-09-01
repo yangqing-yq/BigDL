@@ -11,7 +11,7 @@ permissions:
 jobs:
       
   Surefire-report:
-    runs-on: [ self-hosted, Gondolin, ubuntu-20.04-lts ]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
