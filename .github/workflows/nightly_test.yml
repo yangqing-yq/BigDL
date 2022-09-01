@@ -20,7 +20,7 @@ jobs:
       - name: Create Awesome Badge
         uses: schneegans/dynamic-badges-action@v1.4.0
         with:
-          auth: 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
+          auth: "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"
           gistID: 7495dccc42118020c12de5a095cfa2a6
           filename: test.json
           label: Hello
