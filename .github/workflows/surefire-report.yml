@@ -11,6 +11,7 @@ permissions:
   contents: read
   packages: write
   checks: write
+  actions: write
 
 jobs:
       
