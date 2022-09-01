@@ -33,7 +33,7 @@ jobs:
         uses: ./.github/actions/maven-setup-action
       - name: setup proxy
         run: |
-          git config --list
+          export no_proxy=api.github.com
       # - name: Run test
       #   uses: ./.github/actions/ppml-scala-ut-action
       - name: Run tests
