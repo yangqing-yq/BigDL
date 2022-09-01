@@ -2,6 +2,8 @@ name: Surefile Report
 
 on:
   push:
+    branches:    
+    - 'wip/shaojun/test'
         
 
 permissions:
