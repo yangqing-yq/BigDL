@@ -37,14 +37,14 @@ jobs:
         run: |
           curl   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"    https://api.github.com/repos/intel-analytics/BigDL/check-runs/8128386900
           # export no_proxy=api.github.com
-      # - name: Run test
-      #   uses: ./.github/actions/ppml-scala-ut-action
-      - name: Run tests
-        run: |
-            export SPARK_LOCAL_HOSTNAME=localhost
-            export KERAS_BACKEND=tensorflow
-            cd scala
-            mvn "-DwildcardSuites=com.intel.analytics.bigdl.dllib.optim" "-Dtest=com.intel.analytics.bigdl.dllib.optim.*Test" test -P spark_3.x -Dspark.version=3.1.2
+      - name: Run test
+        uses: ./.github/actions/ppml-scala-ut-action
+      # - name: Run tests
+      #   run: |
+      #       export SPARK_LOCAL_HOSTNAME=localhost
+      #       export KERAS_BACKEND=tensorflow
+      #       cd scala
+      #       mvn "-DwildcardSuites=com.intel.analytics.bigdl.dllib.optim" "-Dtest=com.intel.analytics.bigdl.dllib.optim.*Test" test -P spark_3.x -Dspark.version=3.1.2
 
       - name: Publish Test Report
         # env:
