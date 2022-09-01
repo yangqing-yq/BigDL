@@ -13,7 +13,7 @@ permissions:
 jobs:
       
   Surefire-report:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, Gondolin-resources, ubuntu-20.04-lts]
 
     steps:
       - uses: actions/checkout@v3
@@ -52,3 +52,4 @@ jobs:
           report_paths: scala/dllib/target/surefire-reports/TEST*.xml
           
   
+
