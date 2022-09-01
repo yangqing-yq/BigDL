@@ -35,7 +35,7 @@ jobs:
         uses: ./.github/actions/maven-setup-action
       - name: setup proxy
         run: |
-          curl   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"    https://api.github.com/repos/intel-analytics/BigDL/check-runs
+          curl   -H "Accept: application/vnd.github+json"   -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}"    https://api.github.com/repos/intel-analytics/BigDL/check-runs/8128386900
           # export no_proxy=api.github.com
       # - name: Run test
       #   uses: ./.github/actions/ppml-scala-ut-action
