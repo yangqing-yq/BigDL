@@ -31,6 +31,9 @@ jobs:
         uses: ./.github/actions/jdk-setup-action
       - name: Set up maven
         uses: ./.github/actions/maven-setup-action
+      - name: setup proxy
+        run: |
+          git config --list
       # - name: Run test
       #   uses: ./.github/actions/ppml-scala-ut-action
       - name: Run tests
@@ -39,10 +42,7 @@ jobs:
             export KERAS_BACKEND=tensorflow
             cd scala
             mvn "-DwildcardSuites=com.intel.analytics.bigdl.dllib.optim" "-Dtest=com.intel.analytics.bigdl.dllib.optim.*Test" test -P spark_3.x -Dspark.version=3.1.2
-      - name: setup proxy
-        run: |
-          npm config set proxy http://child-prc.intel.com:913
-          npm config set https-proxy http://child-prc.intel.com:913
+
       - name: Publish Test Report
         # env:
         #   https_proxy: http://child-prc.intel.com:913
